@@ -21,21 +21,22 @@ class TaskCreateView(generic.CreateView):
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    template_name = 'tasks/task_form.html'  # исправил template
-    success_url = reverse_lazy('tasks:task-list')  # исправил namespace
+    template_name = 'tasks/task_form.html'
+    success_url = reverse_lazy('tasks:task-list')
+    form_class = TaskForm
 
 
 class TaskDeleteView(generic.DeleteView):
     model = Task
     template_name = "tasks/task_confirm_delete.html"
-    success_url = reverse_lazy("tasks:task-list")  # исправил namespace
+    success_url = reverse_lazy("tasks:task-list")
 
 class TaskToggleStatusView(View):
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
         task.is_done = not task.is_done
         task.save()
-        return redirect('tasks:task-list')  # исправил namespace
+        return redirect('tasks:task-list')
 
 class TagListView(generic.ListView):
     model = Tag
@@ -45,17 +46,17 @@ class TagListView(generic.ListView):
 class TagCreateView(generic.CreateView):
     model = Tag
     template_name = 'tasks/tag_form.html'
-    success_url = reverse_lazy('tasks:tag-list')  # исправил namespace
+    success_url = reverse_lazy('tasks:tag-list')
     form_class = TagForm
 
 
 class TagUpdateView(generic.UpdateView):
     model = Tag
-    template_name = 'tasks/tag_form.html'  # исправил template
-    success_url = reverse_lazy('tasks:tag-list')  # исправил namespace
-
+    template_name = 'tasks/tag_form.html'
+    success_url = reverse_lazy('tasks:tag-list')
+    form_class = TagForm
 
 class TagDeleteView(generic.DeleteView):
     model = Tag
     template_name = "tasks/tag_confirm_delete.html"
-    success_url = reverse_lazy("tasks:tag-list")  # исправил namespace
+    success_url = reverse_lazy("tasks:tag-list")
